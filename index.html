@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="es">
+    
+    <head>
+        <meta charset="UTF-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Reto 2 ONE: El Ahorcado</title>
+        <link rel="stylesheet" href="index.css">    
+    </head>
+
+    <body style="background-color: #e8e8e8;">
+
+        <!-- Logo -->
+        <header>
+            <img src="images/Logo.png">
+        </header>
+
+        <!-- Sección donde se muestran los botones iniciales -->
+        <div class="div1">
+            <input class="jugar" type="button" value="Iniciar juego">
+            <input class="agregar" type="button" value="Agregar nueva palabra">
+        </div>
+
+    </body>
+
+</html>
+
+<script>
+    if(sessionStorage.length == 0){
+        var palabras = ["PROGRAMA","AMANECER","PLAYA","VENTANA","RELOJ","CALIDAD","CALENTAMIENTO","SUCURSAL","POEMA","FAMILIA"];
+        sessionStorage.setItem("palabras", JSON.stringify(palabras));
+        console.log("uno");
+    }
+    else{
+        var palabras = JSON.parse(sessionStorage.getItem("palabras"));
+        sessionStorage.setItem("palabras", JSON.stringify(palabras));
+        console.log("dos");
+    }
+    var palabranueva = sessionStorage.getItem("palabraNueva");
+    if(palabranueva != null){
+        palabras.push(palabranueva);
+        sessionStorage.setItem("palabras", JSON.stringify(palabras));
+        sessionStorage.removeItem("palabraNueva");
+        console.log("tres");
+    }
+    var jugar = document.querySelector(".jugar");
+    var agregar = document.querySelector(".agregar");
+
+    jugar.onclick = juega;
+    agregar.onclick = agrega;
+
+    function juega(){
+        window.open("juego.html","_self");
+    }
+
+    function agrega(){
+        window.open("agrega_palabra.html","_self");
+    }
+
+</script>

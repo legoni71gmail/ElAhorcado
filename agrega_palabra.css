@@ -1,0 +1,62 @@
+.guardar{
+    background-color: darkblue; 
+    color: lightgray;
+    margin: 2cm 2cm; 
+}
+
+.cancelar{
+    background-color: lightgray; 
+    color: darkblue; 
+    margin: 0cm 0cm; 
+}
+
+.textIngrese{
+    width: 7cm; 
+    height: auto; 
+    margin: 0.5cm; 
+    vertical-align: top; 
+    font-size: 10px; 
+    color: grey;
+}
+
+textarea{
+    border: none; 
+    resize: none; 
+    text-align: center; 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.textoAProcesar{
+    width: 15cm; 
+    margin: 2cm; 
+    background-color: #e8e8e8; 
+    font-size: large; 
+    color: darkblue;
+}
+
+.textoProcesado{
+    width: 7cm; 
+    height: auto; 
+    margin: 0.4cm; 
+    font-size: 14px;
+    font-weight: bold; 
+    color: black;
+}
+
+input{
+    display: inline-block;
+    font-size: 10px; 
+    height: 1cm;
+    width: 6cm; 
+    border: 1px; 
+    border-color: darkblue; 
+    border-style: solid; 
+    border-radius: 15px;
+}
+
+.copiar{
+    background-color: lightgray; 
+    color: darkblue; 
+    margin: 0cm 3.5cm; 
+    visibility: hidden;
+}

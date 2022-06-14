@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Reto 2 ONE: El Ahorcado</title>
+  </head>
+  <body style="background-color: #e8e8e8;">
+    <header>
+      <img src="images/Logo.png">
+    </header>
+    <div style="text-align:center;">
+      <canvas id="ahorcado" height="800px" width="1200px"></canvas>
+    </div>
+  </body>
+
+  <script>
+
+    var palabras = JSON.parse(sessionStorage.getItem("palabras"));
+    var abc = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+    var pantalla = document.querySelector('canvas');
+    var pincel = pantalla.getContext('2d');
+    var posicion = Math.floor(Math.random()*palabras.length);
+    var errores = 0;
+    var palabra = palabras[posicion];
+    var parcial = " ".repeat(palabra.length);
+    var incorrectas = [];
+    var x = 300 - (palabra.length - 1) * 22;
+    var y = 450;
+    pincel.lineWidth = 3;
+    pincel.fillStyle = 'blue';
+    pincel.font="20px Arial";
+    pincel.strokeStyle = 'blue';
+    pincel.lineWidth = 4;
+    escribe(parcial,x,y);
+
+    document.addEventListener('keydown', function(event) {
+      const key = event.key;
+      var a = "";
+      if(palabra.indexOf(key.toUpperCase()) == -1 && incorrectas.indexOf(key.toUpperCase()) == -1 && abc.indexOf(key.toUpperCase()) > -1){
+        incorrectas.push(key.toUpperCase());
+        pincel.fillStyle = 'red';
+        pincel.fillText(incorrectas,200,80);
+        pincel.fillStyle = 'blue';
+        errores++;
+        switch(errores){
+          case 1:
+            pincel.beginPath(); // Piso
+            pincel.moveTo(200,400);
+            pincel.lineTo(400,400);
+            pincel.stroke();
+            break;
+          case 2:
+            pincel.moveTo(250,400); // Poste
+            pincel.lineTo(250,100);
+            pincel.stroke();
+            break;
+          case 3:
+            pincel.moveTo(250,102); // Travesaño
+            pincel.lineTo(350,102);
+            pincel.stroke();
+            break;
+          case 4:
+            pincel.moveTo(340,100); // Cuerda
+            pincel.lineTo(340,200);
+            pincel.stroke();
+            break;
+          case 5:
+            pincel.beginPath(); // Cabeza
+            pincel.arc(340, 220, 20, 0, 2*Math.PI);
+            pincel.stroke();
+            pincel.beginPath(); // Ojos abiertos
+            pincel.arc(330, 215, 5, 0, 2*Math.PI);
+            pincel.stroke();
+            pincel.beginPath();
+            pincel.arc(350, 215, 5, 0, 2*Math.PI);
+            pincel.stroke();
+            pincel.beginPath(); // Boca
+            pincel.arc(340, 235, 10, Math.PI+0.4, -0.4);
+            pincel.stroke();
+            break;
+          case 6:
+            pincel.beginPath(); // Cuerpo
+            pincel.moveTo(340,240);
+            pincel.lineTo(340,300);
+            pincel.stroke();
+            break;
+          case 7:
+            pincel.moveTo(320,280); // Brazo 1
+            pincel.lineTo(340,260);
+            pincel.stroke();
+            break;
+          case 8:
+            pincel.moveTo(360,280); // Brazo 2
+            pincel.lineTo(340,260);
+            pincel.stroke();
+            break;
+          case 9:
+            pincel.moveTo(320,340); // Pierna 1
+            pincel.lineTo(340,300);
+            pincel.stroke();
+            break;
+          case 10:
+            pincel.lineWidth = 4;
+            pincel.moveTo(360,340); // Pierna 2
+            pincel.lineTo(340,300);
+            pincel.stroke();
+            pincel.fillStyle = '#e8e8e8';
+            pincel.beginPath(); // Cabeza
+            pincel.arc(340, 220, 18, 0, 2*Math.PI);
+            pincel.fill();
+            pincel.strokeStyle = 'blue';
+            pincel.fillStyle = 'blue';
+            pincel.beginPath(); // Ojos X
+            pincel.fillText("x", 325, 220);
+            pincel.stroke();
+            pincel.beginPath();
+            pincel.fillText("x", 345, 220);
+            pincel.stroke();
+            pincel.beginPath(); // Boca
+            pincel.moveTo(330,230);
+            pincel.lineTo(350,230);
+            pincel.stroke();
+            escribe(palabra,x,y);
+            pincel.fillStyle = 'red';
+            pincel.fillText("¡Fin del juego!",400,200);
+            pincel.fillStyle = 'blue';
+            break;
+        }
+      }
+      else
+        if(palabra.indexOf(key.toUpperCase()) > -1){
+          for (i=0;i<palabra.length;i++){
+            if(palabra.substring(i,i+1) == key.toUpperCase()){
+              a = a + key.toUpperCase();
+            }
+            else{
+              a = a + parcial.substring(i,i+1);
+            }
+          }
+          parcial = a;
+          escribe(parcial,x,y);
+          if(palabra == parcial){
+            pincel.beginPath(); // Piso
+            pincel.moveTo(200,400);
+            pincel.lineTo(400,400);
+            pincel.stroke();
+            pincel.moveTo(250,400); // Poste
+            pincel.lineTo(250,100);
+            pincel.stroke();
+            pincel.moveTo(250,102); // Travesaño
+            pincel.lineTo(350,102);
+            pincel.stroke();
+            pincel.clearRect(338, 104, 10, 100);
+            pincel.beginPath(); // Cabeza
+            pincel.arc(340, 220, 20, 0, 2*Math.PI);
+            pincel.stroke();
+            pincel.fillStyle = '#e8e8e8';
+            pincel.beginPath();
+            pincel.arc(340, 220, 18, 0, 2*Math.PI);
+            pincel.fill();
+            pincel.strokeStyle = 'blue';
+            pincel.fillStyle = 'blue';
+            pincel.beginPath(); // Ojos abiertos
+            pincel.arc(330, 215, 5, 0, 2*Math.PI);
+            pincel.stroke();
+            pincel.beginPath();
+            pincel.arc(350, 215, 5, 0, 2*Math.PI);
+            pincel.stroke();
+            pincel.beginPath(); // Boca
+            pincel.arc(340, 220, 10, 0.4, Math.PI-0.4);
+            pincel.stroke();
+            pincel.beginPath(); // Cuerpo
+            pincel.moveTo(340,240);
+            pincel.lineTo(340,300);
+            pincel.stroke();
+            pincel.moveTo(320,280); // Brazo 1
+            pincel.lineTo(340,260);
+            pincel.stroke();
+            pincel.moveTo(360,280); // Brazo 2
+            pincel.lineTo(340,260);
+            pincel.stroke();
+            pincel.moveTo(320,340); // Pierna 1
+            pincel.lineTo(340,300);
+            pincel.stroke();
+            pincel.lineWidth = 4;
+            pincel.moveTo(360,340); // Pierna 2
+            pincel.lineTo(340,300);
+            pincel.stroke();
+            escribe(palabra,x,y);
+            pincel.fillStyle = 'red';
+            pincel.fillText("¡Ganaste, felicidades!",400,200);
+            pincel.fillStyle = 'blue';
+          }
+        }
+    });
+
+    function escribe(texto,x,y){
+      for (i=0;i<texto.length;i++){
+        if (palabra.substring(i,i+1) != " "){
+          pincel.fillText(texto.substring(i,i+1),x,y);    
+          pincel.moveTo(x-4,y+5);
+          pincel.lineTo(x+18,y+5);
+          pincel.stroke();
+        }
+        x = x + 40;
+      }
+    }
+
+</script>
+
+</html>

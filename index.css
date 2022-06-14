@@ -1,0 +1,35 @@
+.jugar{
+    background-color: darkblue; 
+    color: lightgray;
+    margin: 2cm 4cm; 
+}
+
+.agregar{
+    background-color: lightgray; 
+    color: darkblue; 
+    margin: 0cm 4cm; 
+}
+
+.div1{
+    display: inline-block; 
+    width: 50%;
+}
+
+
+.botones{
+    height: 10cm; 
+    width: 90%; 
+    font-family: Arial, Helvetica, sans-serif; 
+    padding: 3px;
+}
+
+input{
+    display: inline-block;
+    font-size: 10px; 
+    height: 1cm;
+    width: 6cm; 
+    border: 1px; 
+    border-color: darkblue; 
+    border-style: solid; 
+    border-radius: 15px;
+}
